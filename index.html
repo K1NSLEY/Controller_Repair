@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0f19">
+  <meta name="theme-color" content="#0a2239">
   <meta name="description" content="Manutenção e reparo de controles DualSense PS5. Faça uma estimativa e solicite seu orçamento pelo WhatsApp.">
   <title>DualFix — Reparo de controles DualSense</title>
   <link rel="stylesheet" href="styles.css">
@@ -80,31 +80,36 @@
       </div>
 
       <div class="services">
+        <article class="service-card featured">
+          <span class="recommended-badge">MAIOR DESCONTO NO PAR</span>
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8m0-12.8-2.8 2.8m-7.2 7.2-2.8 2.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/></svg>
+          </div>
+          <h3>Analógico TMR</h3>
+          <p>Tecnologia magnética de alta precisão, com menor desgaste por contato.</p>
+          <span class="service-price">R$ 189,00 cada · R$ 289,99 o par</span>
+          <span class="saving-badge">Economize 23,28% no par</span>
+          <p class="margin-note">Maior percentual de economia na troca do par.</p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8m0-12.8-2.8 2.8m-7.2 7.2-2.8 2.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/></svg>
+          </div>
+          <h3>Analógico Hall FX</h3>
+          <p>Tecnologia magnética, projetada para reduzir o desgaste por contato.</p>
+          <span class="service-price">R$ 159,90 cada · R$ 279,99 o par</span>
+          <span class="saving-badge">Economize 12,45% no par</span>
+        </article>
+
         <article class="service-card">
           <div class="service-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M12 4v5m8 3h-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
           </div>
           <h3>Analógico comum</h3>
           <p>Substituição do módulo padrão para resolver falhas e drift.</p>
-          <span class="service-price">R$ 89 por analógico · R$ 300 o par</span>
-        </article>
-
-        <article class="service-card">
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8m0-12.8-2.8 2.8m-7.2 7.2-2.8 2.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/></svg>
-          </div>
-          <h3>Analógico TMR</h3>
-          <p>Tecnologia magnética de alta precisão, com menor desgaste por contato.</p>
-          <span class="service-price">R$ 179 por analógico · R$ 399 o par</span>
-        </article>
-
-        <article class="service-card">
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8m0-12.8-2.8 2.8m-7.2 7.2-2.8 2.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/></svg>
-          </div>
-          <h3>Analógico Hall Effect</h3>
-          <p>Tecnologia magnética, projetada para reduzir o desgaste por contato.</p>
-          <span class="service-price">A partir de R$ 159,90 por analógico</span>
+          <span class="service-price">R$ 79,00 cada · R$ 144,99 o par</span>
+          <span class="saving-badge">Economize 8,23% no par</span>
         </article>
 
         <article class="service-card">
@@ -122,7 +127,7 @@
       <div class="section-heading">
         <p class="eyebrow">Orçamento rápido</p>
         <h2 id="quote-title">Monte sua estimativa.</h2>
-        <p>Escolha as opções abaixo. O valor é atualizado automaticamente.</p>
+        <p>Escolha a tecnologia e a quantidade. O pacote com dois analógicos já aplica o preço especial.</p>
       </div>
 
       <div class="quote-layout">
@@ -131,11 +136,14 @@
           <p class="quote-intro">Selecione o serviço que você precisa.</p>
 
           <div class="field">
-            <label for="analog-type">Tipo de analógico</label>
+            <div class="label-with-help">
+              <label for="analog-type">Tipo de analógico</label>
+              <button class="help-button" type="button" aria-label="O que muda entre os tipos de analógico?" data-help="overview">?</button>
+            </div>
             <select id="analog-type" name="analog-type">
-              <option value="common">Comum — R$ 89 um · R$ 300 o par</option>
-              <option value="hall">Hall Effect — R$ 159,90 cada</option>
-              <option value="tmr">TMR — R$ 179 um · R$ 399 o par</option>
+              <option value="tmr">TMR — R$ 189,00 cada · R$ 289,99 o par (23,28% off)</option>
+              <option value="hall">Hall FX — R$ 159,90 cada · R$ 279,99 o par (12,45% off)</option>
+              <option value="common">Comum — R$ 79,00 cada · R$ 144,99 o par (8,23% off)</option>
             </select>
           </div>
 
@@ -143,15 +151,40 @@
             <legend class="field-legend">Quantidade de analógicos</legend>
             <div class="quantity-options">
               <label class="quantity-option">
-                <input type="radio" name="quantity" value="1" checked>
+                <input type="radio" name="quantity" value="1">
                 <span>1 analógico</span>
               </label>
               <label class="quantity-option">
-                <input type="radio" name="quantity" value="2">
+                <input type="radio" name="quantity" value="2" checked>
                 <span>Par de analógicos</span>
               </label>
             </div>
           </fieldset>
+
+          <div class="field coupon-field">
+            <label for="coupon-code">Cupom de primeira compra</label>
+            <div class="coupon-control">
+              <input id="coupon-code" name="coupon-code" type="text" value="PRIMEIRACOMPRA" autocomplete="off" spellcheck="false" aria-describedby="coupon-status">
+              <span class="coupon-applied" id="coupon-status" data-state="applied" role="status">Aplicado automaticamente ao par</span>
+            </div>
+            <small class="field-hint">Na primeira compra, troque o par selecionado pagando o equivalente a 1 analógico.</small>
+          </div>
+
+          <div class="field referral-field">
+            <label class="check-option" for="was-referred">
+              <input type="checkbox" id="was-referred" name="was-referred">
+              <span>
+                <strong>Fui indicado por alguém</strong>
+                <small>Informe quem indicou para mencionarmos na solicitação.</small>
+              </span>
+            </label>
+            <div class="referral-details" id="referral-details" hidden>
+              <label for="referrer-name">Nome de quem indicou</label>
+              <input id="referrer-name" name="referrer-name" type="text" autocomplete="name" placeholder="Nome da pessoa">
+              <label for="referrer-phone">Telefone de quem indicou</label>
+              <input id="referrer-phone" name="referrer-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="DDD + telefone">
+            </div>
+          </div>
 
           <div class="field">
             <label class="check-option" for="cleaning">
@@ -169,16 +202,20 @@
         <aside class="summary-card" aria-live="polite" aria-atomic="true">
           <h3>Resumo do orçamento</h3>
           <div class="summary-line">
-            <span id="summary-analog-name">Analógico comum × 1</span>
-            <strong id="summary-analog-price">R$ 89,00</strong>
+            <span id="summary-analog-name">Analógico TMR · par (cupom)</span>
+            <strong id="summary-analog-price">R$ 189,00</strong>
           </div>
           <div class="summary-line">
             <span>Limpeza preventiva</span>
             <strong id="summary-cleaning">Não incluída</strong>
           </div>
+          <div class="summary-line savings-line" id="summary-savings-row">
+            <span id="summary-savings-label">Economia do par</span>
+            <strong id="summary-savings">R$ 189,00</strong>
+          </div>
           <div class="total-line">
             <span>Estimativa total</span>
-            <strong id="summary-total">R$ 89,00</strong>
+            <strong id="summary-total">R$ 189,00</strong>
           </div>
           <button class="button whatsapp-button" id="whatsapp-button" type="button">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -191,7 +228,49 @@
         </aside>
       </div>
     </section>
+  <section class="tech-guide container" id="tecnologias" aria-labelledby="tech-guide-title">
+    <div class="section-heading">
+      <p class="eyebrow">Guia técnico</p>
+      <h2 id="tech-guide-title">Qual analógico combina com seu uso?</h2>
+      <p>Entenda as diferenças e escolha com confiança. Todos os valores são por controle/serviço, conforme a quantidade selecionada.</p>
+    </div>
+    <div class="tech-guide-grid">
+      <article class="tech-guide-card" id="guia-comum">
+        <span class="tech-index">01 / CONVENCIONAL</span>
+        <h3>Analógico comum</h3>
+        <p>Usa contatos físicos resistivos para detectar o movimento. É a opção tradicional e mais acessível para substituir um módulo com defeito.</p>
+        <p class="tech-price">R$ 79,00 individual · R$ 144,99 o par</p>
+      </article>
+      <article class="tech-guide-card" id="guia-hall">
+        <span class="tech-index">02 / MAGNÉTICO</span>
+        <h3>Hall FX</h3>
+        <p>Detecta a posição por efeito Hall, sem depender do mesmo contato resistivo do módulo tradicional. Pode reduzir o desgaste associado ao uso, mas a instalação e a calibração continuam importantes.</p>
+        <p class="tech-price">R$ 159,90 individual · R$ 279,99 o par</p>
+      </article>
+      <article class="tech-guide-card" id="guia-tmr">
+        <span class="tech-index">03 / MAGNÉTICO TMR</span>
+        <h3>TMR</h3>
+        <p>Usa sensores magnetorresistivos (TMR) para medir o movimento sem contato resistivo. É uma alternativa magnética de alta sensibilidade; desempenho final depende da peça, montagem e calibração.</p>
+        <p class="tech-price">R$ 189,00 individual · R$ 289,99 o par</p>
+      </article>
+    </div>
+  </section>
   </main>
+
+  <dialog class="help-dialog" id="help-dialog" aria-labelledby="help-title">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow">Ajuda rápida</p>
+        <h2 id="help-title">Entenda as tecnologias</h2>
+      </div>
+      <button class="dialog-close" type="button" aria-label="Fechar">×</button>
+    </div>
+    <p class="dialog-copy" id="help-copy"></p>
+    <div class="dialog-actions">
+      <a class="button button-primary" id="guide-link" href="#tecnologias">Ver guia completo</a>
+      <button class="text-button dialog-close" type="button">Continuar orçamento</button>
+    </div>
+  </dialog>
 
   <footer class="footer">
     <div class="container">DualFix · Manutenção e reparo de controles DualSense PS5</div>
