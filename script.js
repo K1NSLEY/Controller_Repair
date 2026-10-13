@@ -24,7 +24,7 @@ const products = {
 };
 
 const prices = {
-  cleaning: 59.90
+  cleaning: 19.99
 };
 
 const techDescriptions = {
@@ -39,6 +39,7 @@ const analogType = document.getElementById("analog-type");
 const cleaning = document.getElementById("cleaning");
 const couponCode = document.getElementById("coupon-code");
 const couponStatus = document.getElementById("coupon-status");
+const applyCouponButton = document.getElementById("apply-coupon");
 const wasReferred = document.getElementById("was-referred");
 const referralDetails = document.getElementById("referral-details");
 const referrerName = document.getElementById("referrer-name");
@@ -55,6 +56,9 @@ const helpDialog = document.getElementById("help-dialog");
 const helpTitle = document.getElementById("help-title");
 const helpCopy = document.getElementById("help-copy");
 const guideLink = document.getElementById("guide-link");
+const helpDialogPanel = helpDialog.querySelector(".help-dialog-panel");
+const helpTrigger = document.querySelector("[data-help]");
+let lastFocusedElement = null;
 const currency = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL"
@@ -109,15 +113,26 @@ function updateQuote() {
   summarySavings.textContent = currency.format(quote.savings);
   summarySavingsRow.hidden = quote.quantity !== 2;
 
-  if (!hasCoupon()) {
+  if (!couponCode.value.trim()) {
+    couponStatus.textContent = "";
+    couponStatus.dataset.state = "";
+    applyCouponButton.textContent = "Aplicar";
+    applyCouponButton.disabled = false;
+  } else if (!hasCoupon()) {
     couponStatus.textContent = "Cupom não reconhecido";
     couponStatus.dataset.state = "invalid";
+    applyCouponButton.textContent = "Aplicar";
+    applyCouponButton.disabled = false;
   } else if (quote.quantity !== 2) {
-    couponStatus.textContent = "Válido para o par · escolha 2";
+    couponStatus.textContent = "Cupom válido. Selecione o par para aplicar a oferta.";
     couponStatus.dataset.state = "waiting";
+    applyCouponButton.textContent = "Aplicar";
+    applyCouponButton.disabled = false;
   } else {
-    couponStatus.textContent = "Aplicado automaticamente ao par";
+    couponStatus.textContent = "Oferta aplicada ao par.";
     couponStatus.dataset.state = "applied";
+    applyCouponButton.textContent = "Aplicado";
+    applyCouponButton.disabled = true;
   }
 }
 
@@ -138,7 +153,23 @@ function openHelp(topic) {
   guideLink.href = topic === "overview"
     ? "#tecnologias"
     : `#guia-${selectedType}`;
-  helpDialog.showModal();
+  lastFocusedElement = document.activeElement;
+  helpDialog.hidden = false;
+  helpDialog.classList.add("is-open");
+  helpTrigger.setAttribute("aria-expanded", "true");
+  document.body.style.overflow = "hidden";
+  helpDialog.querySelector(".dialog-close").focus();
+}
+
+function closeHelp() {
+  if (helpDialog.hidden) return;
+
+  helpDialog.hidden = true;
+  helpDialog.classList.remove("is-open");
+  helpTrigger.setAttribute("aria-expanded", "false");
+  document.body.style.overflow = "";
+
+  if (lastFocusedElement instanceof HTMLElement) lastFocusedElement.focus();
 }
 
 function sendWhatsAppQuote() {
@@ -187,12 +218,37 @@ document.querySelectorAll("[data-help]").forEach((button) => {
 });
 
 document.querySelectorAll(".dialog-close").forEach((button) => {
-  button.addEventListener("click", () => helpDialog.close());
+  button.addEventListener("click", closeHelp);
 });
 
-guideLink.addEventListener("click", () => helpDialog.close());
+guideLink.addEventListener("click", closeHelp);
 helpDialog.addEventListener("click", (event) => {
-  if (event.target === helpDialog) helpDialog.close();
+  if (event.target === helpDialog) closeHelp();
+});
+helpDialog.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeHelp();
+    return;
+  }
+
+  if (event.key === "Tab") {
+    const focusableElements = helpDialogPanel.querySelectorAll("a[href], button:not(:disabled)");
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey && document.activeElement === firstElement) {
+      event.preventDefault();
+      lastElement.focus();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+      event.preventDefault();
+      firstElement.focus();
+    }
+  }
+});
+applyCouponButton.addEventListener("click", () => {
+  couponCode.value = FIRST_ORDER_COUPON;
+  updateQuote();
 });
 wasReferred.addEventListener("change", updateReferralFields);
 couponCode.addEventListener("input", updateQuote);

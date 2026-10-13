@@ -118,7 +118,7 @@
           </div>
           <h3>Limpeza e outros reparos</h3>
           <p>Limpeza preventiva, botões e outros serviços sob avaliação.</p>
-          <span class="service-price">Limpeza preventiva: R$ 59,90</span>
+          <span class="service-price">Limpeza preventiva: R$ 19,99</span>
         </article>
       </div>
     </section>
@@ -132,13 +132,15 @@
 
       <div class="quote-layout">
         <form class="quote-card" id="quote-form">
-          <h2>Personalize o reparo</h2>
+          <div class="quote-card-heading">
+            <h2>Personalize o reparo</h2>
+            <button class="help-button" type="button" aria-label="Saiba mais sobre os tipos de analógico" aria-controls="help-dialog" aria-expanded="false" data-help="overview">?</button>
+          </div>
           <p class="quote-intro">Selecione o serviço que você precisa.</p>
 
           <div class="field">
             <div class="label-with-help">
               <label for="analog-type">Tipo de analógico</label>
-              <button class="help-button" type="button" aria-label="O que muda entre os tipos de analógico?" data-help="overview">?</button>
             </div>
             <select id="analog-type" name="analog-type">
               <option value="tmr">TMR — R$ 189,00 cada · R$ 289,99 o par (23,28% off)</option>
@@ -164,10 +166,17 @@
           <div class="field coupon-field">
             <label for="coupon-code">Cupom de primeira compra</label>
             <div class="coupon-control">
-              <input id="coupon-code" name="coupon-code" type="text" value="PRIMEIRACOMPRA" autocomplete="off" spellcheck="false" aria-describedby="coupon-status">
-              <span class="coupon-applied" id="coupon-status" data-state="applied" role="status">Aplicado automaticamente ao par</span>
+              <input id="coupon-code" name="coupon-code" type="text" placeholder="Digite um cupom" autocomplete="off" spellcheck="false" aria-describedby="coupon-status">
             </div>
-            <small class="field-hint">Na primeira compra, troque o par selecionado pagando o equivalente a 1 analógico.</small>
+            <div class="coupon-suggestion" id="coupon-suggestion">
+              <div class="coupon-suggestion-copy">
+                <span class="coupon-suggestion-label">OFERTA DE PRIMEIRA COMPRA</span>
+                <strong>Pague 1 analógico ao trocar o par</strong>
+                <small>Aplica a oferta de primeira compra ao seu orçamento.</small>
+              </div>
+              <button class="coupon-apply-button" id="apply-coupon" type="button">Aplicar</button>
+            </div>
+            <span class="coupon-status" id="coupon-status" role="status" aria-live="polite"></span>
           </div>
 
           <div class="field referral-field">
@@ -191,7 +200,7 @@
               <input type="checkbox" id="cleaning" name="cleaning">
               <span>
                 <strong>Adicionar limpeza preventiva</strong>
-                <small>Limpeza interna do controle — R$ 59,90</small>
+                <small>Limpeza interna do controle — R$ 19,99</small>
               </span>
             </label>
           </div>
@@ -202,8 +211,8 @@
         <aside class="summary-card" aria-live="polite" aria-atomic="true">
           <h3>Resumo do orçamento</h3>
           <div class="summary-line">
-            <span id="summary-analog-name">Analógico TMR · par (cupom)</span>
-            <strong id="summary-analog-price">R$ 189,00</strong>
+            <span id="summary-analog-name">Analógico TMR · par</span>
+            <strong id="summary-analog-price">R$ 289,99</strong>
           </div>
           <div class="summary-line">
             <span>Limpeza preventiva</span>
@@ -211,11 +220,11 @@
           </div>
           <div class="summary-line savings-line" id="summary-savings-row">
             <span id="summary-savings-label">Economia do par</span>
-            <strong id="summary-savings">R$ 189,00</strong>
+            <strong id="summary-savings">R$ 88,01</strong>
           </div>
           <div class="total-line">
             <span>Estimativa total</span>
-            <strong id="summary-total">R$ 189,00</strong>
+            <strong id="summary-total">R$ 289,99</strong>
           </div>
           <button class="button whatsapp-button" id="whatsapp-button" type="button">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -257,20 +266,22 @@
   </section>
   </main>
 
-  <dialog class="help-dialog" id="help-dialog" aria-labelledby="help-title">
-    <div class="dialog-header">
-      <div>
-        <p class="eyebrow">Ajuda rápida</p>
-        <h2 id="help-title">Entenda as tecnologias</h2>
+  <div class="help-dialog" id="help-dialog" hidden>
+    <div class="help-dialog-panel" role="dialog" aria-modal="true" aria-labelledby="help-title" tabindex="-1">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">Ajuda rápida</p>
+          <h2 id="help-title">Entenda as tecnologias</h2>
+        </div>
+        <button class="dialog-close" type="button" aria-label="Fechar">×</button>
       </div>
-      <button class="dialog-close" type="button" aria-label="Fechar">×</button>
+      <p class="dialog-copy" id="help-copy"></p>
+      <div class="dialog-actions">
+        <a class="button button-primary" id="guide-link" href="#tecnologias">Ver guia completo</a>
+        <button class="text-button dialog-close" type="button">Continuar orçamento</button>
+      </div>
     </div>
-    <p class="dialog-copy" id="help-copy"></p>
-    <div class="dialog-actions">
-      <a class="button button-primary" id="guide-link" href="#tecnologias">Ver guia completo</a>
-      <button class="text-button dialog-close" type="button">Continuar orçamento</button>
-    </div>
-  </dialog>
+  </div>
 
   <footer class="footer">
     <div class="container">DualFix · Manutenção e reparo de controles DualSense PS5</div>

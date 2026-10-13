@@ -307,34 +307,40 @@
       font-weight: 750;
     }
 
-    .label-with-help {
+    .quote-card-heading {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 9px;
+      gap: 14px;
+      margin-bottom: 6px;
     }
-
-    .label-with-help label { margin: 0; }
 
     .help-button, .dialog-close {
       display: inline-grid;
-      width: 32px;
-      height: 32px;
+      width: 44px;
+      height: 44px;
       flex: 0 0 auto;
       place-items: center;
-      border: 1px solid rgba(83, 162, 190, .55);
+      border: 1px solid rgba(83, 162, 190, .7);
       border-radius: 50%;
-      background: rgba(29, 132, 181, .14);
-      color: #b4e4ef;
-      font-weight: 800;
+      background: linear-gradient(145deg, rgba(29, 132, 181, .28), rgba(83, 162, 190, .12));
+      color: #d4f2f8;
+      font-size: 1.1rem;
+      font-weight: 850;
       cursor: pointer;
-      transition: background .2s ease, transform .2s ease;
+      box-shadow: inset 0 0 0 3px rgba(83, 162, 190, .06);
+      transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
     }
 
     .help-button:hover, .dialog-close:hover {
       transform: translateY(-1px);
       background: rgba(29, 132, 181, .32);
+      box-shadow: 0 0 18px rgba(83, 162, 190, .18);
+    }
+
+    .help-button:focus-visible, .dialog-close:focus-visible {
+      outline: 3px solid rgba(83, 162, 190, .6);
+      outline-offset: 3px;
     }
 
     .savings-line strong { color: #8fdbc8; }
@@ -415,8 +421,24 @@
     }
 
     .help-dialog {
-      width: min(540px, calc(100% - 28px));
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      overflow-y: auto;
+      padding: max(16px, env(safe-area-inset-top)) 14px max(16px, env(safe-area-inset-bottom));
+      background: rgba(2, 10, 17, .78);
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+    }
+
+    .help-dialog[hidden] { display: none; }
+
+    .help-dialog-panel {
+      width: min(540px, 100%);
       max-height: min(82vh, 620px);
+      overflow-y: auto;
       padding: clamp(22px, 5vw, 34px);
       border: 1px solid rgba(83, 162, 190, .38);
       border-radius: 24px;
@@ -429,8 +451,7 @@
       box-shadow: 0 28px 90px rgba(0, 0, 0, .48);
     }
 
-    .help-dialog[open] { animation: dialog-enter .18s ease-out; }
-    .help-dialog::backdrop { background: rgba(2, 10, 17, .76); backdrop-filter: blur(5px); }
+    .help-dialog.is-open .help-dialog-panel { animation: dialog-enter .18s ease-out; }
 
     @keyframes dialog-enter {
       from { opacity: 0; transform: translateY(10px) scale(.98); }
@@ -440,7 +461,7 @@
     .dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
     .dialog-header .eyebrow { margin-bottom: 8px; font-size: .7rem; }
     .dialog-header h2 { margin-bottom: 12px; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: -.04em; }
-    .dialog-close { width: 36px; height: 36px; font-size: 1.25rem; }
+    .dialog-close { width: 44px; height: 44px; font-size: 1.35rem; }
     .dialog-copy { margin-bottom: 24px; color: var(--muted); }
     .dialog-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
     .text-button { border: 0; background: transparent; color: #a6dfed; font-weight: 700; cursor: pointer; }
@@ -499,15 +520,43 @@
       text-transform: uppercase;
     }
 
-    .coupon-applied {
-      color: #95ddc7;
-      font-size: .84rem;
-      font-weight: 750;
+    .coupon-suggestion {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+      padding: 13px;
+      border: 1px solid rgba(83, 162, 190, .26);
+      border-radius: 14px;
+      background: linear-gradient(120deg, rgba(29, 132, 181, .12), rgba(10, 34, 57, .55));
     }
 
-    .coupon-applied[data-state="waiting"] { color: #e2c98a; }
-    .coupon-applied[data-state="invalid"] { color: #ff9f9f; }
-    .field-hint { display: block; margin-top: 8px; color: var(--muted); font-size: .82rem; }
+    .coupon-suggestion-copy { display: grid; gap: 3px; min-width: 0; }
+    .coupon-suggestion-label { color: #91cfe0; font-size: .66rem; font-weight: 850; letter-spacing: .08em; }
+    .coupon-suggestion-copy strong { color: var(--text); font-size: .88rem; line-height: 1.35; }
+    .coupon-suggestion-copy small { color: var(--muted); font-size: .77rem; line-height: 1.4; }
+
+    .coupon-apply-button {
+      min-width: 84px;
+      min-height: 42px;
+      flex: 0 0 auto;
+      padding: 8px 13px;
+      border: 1px solid rgba(83, 162, 190, .58);
+      border-radius: 11px;
+      background: rgba(29, 132, 181, .2);
+      color: #c4edf5;
+      font-size: .87rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .coupon-apply-button:hover:not(:disabled) { background: rgba(29, 132, 181, .34); }
+    .coupon-apply-button:disabled { cursor: default; opacity: .75; }
+    .coupon-status { display: block; margin-top: 7px; color: #95ddc7; font-size: .8rem; font-weight: 700; }
+    .coupon-status:empty { display: none; }
+    .coupon-status[data-state="waiting"] { color: #e2c98a; }
+    .coupon-status[data-state="invalid"] { color: #ff9f9f; }
     .referral-details { display: grid; gap: 8px; margin-top: 12px; }
     .referral-details[hidden] { display: none; }
     .referral-details label { margin: 4px 0 0; font-size: .88rem; }
@@ -669,6 +718,8 @@
       .tech-guide-card p { max-width: 58ch; }
       .total-line strong { font-size: 1.75rem; }
       .whatsapp-button { padding-inline: 14px; font-size: .92rem; }
+      .coupon-suggestion { align-items: flex-start; }
+      .coupon-apply-button { min-width: 78px; }
       .dialog-actions { align-items: stretch; flex-direction: column; }
       .dialog-actions .button { width: 100%; }
     }
