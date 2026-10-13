@@ -57,8 +57,8 @@ const helpTitle = document.getElementById("help-title");
 const helpCopy = document.getElementById("help-copy");
 const guideLink = document.getElementById("guide-link");
 const helpDialogPanel = helpDialog.querySelector(".help-dialog-panel");
-const helpTrigger = document.querySelector("[data-help]");
 let lastFocusedElement = null;
+let lastHelpTrigger = null;
 const currency = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL"
@@ -142,7 +142,7 @@ function updateReferralFields() {
   referrerPhone.required = wasReferred.checked;
 }
 
-function openHelp(topic) {
+function openHelp(topic, trigger) {
   const selectedType = topic === "overview" ? analogType.value : topic;
   const product = products[selectedType];
 
@@ -154,9 +154,10 @@ function openHelp(topic) {
     ? "#tecnologias"
     : `#guia-${selectedType}`;
   lastFocusedElement = document.activeElement;
+  lastHelpTrigger = trigger;
   helpDialog.hidden = false;
   helpDialog.classList.add("is-open");
-  helpTrigger.setAttribute("aria-expanded", "true");
+  trigger.setAttribute("aria-expanded", "true");
   document.body.style.overflow = "hidden";
   helpDialog.querySelector(".dialog-close").focus();
 }
@@ -166,10 +167,11 @@ function closeHelp() {
 
   helpDialog.hidden = true;
   helpDialog.classList.remove("is-open");
-  helpTrigger.setAttribute("aria-expanded", "false");
+  lastHelpTrigger?.setAttribute("aria-expanded", "false");
   document.body.style.overflow = "";
 
   if (lastFocusedElement instanceof HTMLElement) lastFocusedElement.focus();
+  lastHelpTrigger = null;
 }
 
 function sendWhatsAppQuote() {
@@ -214,7 +216,7 @@ function sendWhatsAppQuote() {
 }
 
 document.querySelectorAll("[data-help]").forEach((button) => {
-  button.addEventListener("click", () => openHelp(button.dataset.help));
+  button.addEventListener("click", () => openHelp(button.dataset.help, button));
 });
 
 document.querySelectorAll(".dialog-close").forEach((button) => {
@@ -259,3 +261,30 @@ whatsappButton.addEventListener("click", () => {
 });
 updateReferralFields();
 updateQuote();
+
+const pageLoader = document.getElementById("page-loader");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const minimumLoaderTime = reducedMotion ? 250 : 2350;
+const loaderStartedAt = performance.now();
+let loaderFinished = false;
+
+function finishLoader() {
+  if (loaderFinished) return;
+  loaderFinished = true;
+  const elapsed = performance.now() - loaderStartedAt;
+  const remainingTime = Math.max(0, minimumLoaderTime - elapsed);
+
+  window.setTimeout(() => {
+    pageLoader.classList.add("is-leaving");
+    window.setTimeout(() => {
+      pageLoader.hidden = true;
+    }, 450);
+  }, remainingTime);
+}
+
+if (document.readyState === "complete") {
+  finishLoader();
+} else {
+  window.addEventListener("load", finishLoader, { once: true });
+  window.setTimeout(finishLoader, 5000);
+}
