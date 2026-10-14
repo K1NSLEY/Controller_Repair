@@ -1036,8 +1036,8 @@
       outline: 3px solid rgba(29, 132, 181, .14);
     }
 
-    .service-price,
-    .featured .service-price { color: var(--text); font-size: 1.15rem; }
+    .service-price { color: var(--text); font-size: 1.15rem; }
+    .service-card.featured .service-price { color: #c2edf5; }
 
     .saving-badge {
       border-color: rgba(29, 132, 181, .2);
