@@ -464,6 +464,8 @@
     .dialog-close { width: 44px; height: 44px; font-size: 1.35rem; }
     .dialog-copy { margin-bottom: 24px; color: var(--muted); }
     .dialog-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    #guide-link[hidden],
+    .dialog-actions .dialog-close[hidden] { display: none; }
     .text-button { border: 0; background: transparent; color: #a6dfed; font-weight: 700; cursor: pointer; }
     .text-button:hover { color: var(--text); }
 
@@ -925,6 +927,63 @@
       line-height: 1.65;
     }
 
+    .warranty-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      max-width: 100%;
+      margin-top: 18px;
+      padding: 10px 15px;
+      border: 1px solid rgba(29, 132, 181, .2);
+      border-radius: 999px;
+      color: #0b5474;
+      background: linear-gradient(110deg, #e8f4f8, #f1f8fa);
+      box-shadow: 0 5px 16px rgba(10, 34, 57, .045);
+      font-size: .9rem;
+      line-height: 1.4;
+      text-align: left;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+
+    .warranty-badge:hover {
+      border-color: rgba(29, 132, 181, .38);
+      background: linear-gradient(110deg, #deeff5, #eaf5f8);
+      box-shadow: 0 8px 22px rgba(10, 34, 57, .09);
+      transform: translateY(-1px);
+    }
+
+    .warranty-badge:focus-visible {
+      outline: 3px solid rgba(29, 132, 181, .3);
+      outline-offset: 3px;
+    }
+
+    .warranty-badge svg {
+      width: 21px;
+      height: 21px;
+      flex: 0 0 auto;
+      color: var(--brand);
+    }
+
+    .warranty-badge strong { color: var(--text); }
+
+    .warranty-help-mark {
+      display: inline-grid;
+      width: 23px;
+      height: 23px;
+      flex: 0 0 auto;
+      place-items: center;
+      margin-left: 2px;
+      border: 1px solid rgba(29, 132, 181, .28);
+      border-radius: 50%;
+      color: #0b6289;
+      background: rgba(255, 255, 255, .72);
+      font-size: .8rem;
+      font-weight: 750;
+      line-height: 1;
+    }
+
     .services { gap: 17px; }
 
     .service-card,
@@ -1340,6 +1399,7 @@
       .section-heading { margin-bottom: 27px; }
       .section-heading h2 { font-size: clamp(2rem, 9vw, 2.7rem); }
       .section-heading > p:last-child { font-size: .98rem; }
+      .warranty-badge { gap: 8px; padding: 9px 12px; font-size: .84rem; }
       .services { grid-template-columns: 1fr; gap: 13px; }
       .service-card.featured { grid-column: auto; }
       .service-card, .tech-guide-card { padding: 23px; border-radius: 20px; }

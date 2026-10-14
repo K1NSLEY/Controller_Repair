@@ -28,10 +28,11 @@ const prices = {
 };
 
 const techDescriptions = {
-  common: "O analógico comum utiliza contatos físicos resistivos para detectar o movimento. É a opção tradicional e mais acessível para substituir um módulo com defeito.",
-  hall: "O Hall FX detecta a posição por efeito Hall, sem depender do mesmo contato resistivo do módulo tradicional. Pode reduzir o desgaste associado ao uso; instalação e calibração continuam importantes.",
-  tmr: "O TMR usa sensores magnetorresistivos para medir o movimento sem contato resistivo. É uma alternativa magnética de alta sensibilidade; o resultado final depende da peça, montagem e calibração.",
-  overview: "Analógicos comuns usam contatos físicos resistivos. Hall FX e TMR usam sensores magnéticos, mas tecnologias e características variam entre componentes. Abra o guia completo para comparar os tipos e ver os preços."
+  common: "O analógico comum é a opção tradicional e mais acessível. Sua leitura depende de contatos resistivos que se desgastam com o uso; esse desgaste pode causar drift. Hall FX e TMR usam leitura magnética sem contato resistivo e evitam essa causa típica de desgaste.",
+  hall: "O Hall FX detecta a posição por efeito Hall, sem contato resistivo. Isso evita o desgaste do potenciômetro comum e o drift que pode surgir por esse motivo. Instalação e calibração corretas continuam importantes.",
+  tmr: "O TMR lê o movimento por sensores magnetorresistivos, sem os contatos resistivos que se desgastam nos analógicos comuns. Evita o drift associado a esse desgaste e oferece uma experiência magnética de alta sensibilidade. Instalação e calibração corretas continuam importantes.",
+  warranty: "A garantia é de 3 meses para os serviços realizados. Se você precisar acioná-la, faremos uma avaliação técnica para verificar se o problema está relacionado ao serviço ou se há sinais de mau uso. A cobertura é definida após essa análise.",
+  overview: "TMR e Hall FX usam leitura magnética sem contato resistivo e evitam o drift típico causado pelo desgaste dos analógicos comuns. O TMR é a opção premium; o Hall FX equilibra tecnologia magnética e preço. Nenhuma instalação está imune a qualquer tipo de falha: peça, montagem e calibração também importam. Veja o guia completo para comparar."
 };
 
 const form = document.getElementById("quote-form");
@@ -56,6 +57,7 @@ const helpDialog = document.getElementById("help-dialog");
 const helpTitle = document.getElementById("help-title");
 const helpCopy = document.getElementById("help-copy");
 const guideLink = document.getElementById("guide-link");
+const warrantyReturnButton = helpDialog.querySelector(".dialog-actions .dialog-close");
 const helpDialogPanel = helpDialog.querySelector(".help-dialog-panel");
 let lastFocusedElement = null;
 let lastHelpTrigger = null;
@@ -146,13 +148,20 @@ function openHelp(topic, trigger) {
   const selectedType = topic === "overview" ? analogType.value : topic;
   const product = products[selectedType];
 
-  helpTitle.textContent = topic === "overview"
-    ? "O que muda entre os analógicos?"
-    : `Analógico ${product.name}`;
-  helpCopy.textContent = techDescriptions[topic === "overview" ? "overview" : selectedType];
-  guideLink.href = topic === "overview"
-    ? "#tecnologias"
-    : `#guia-${selectedType}`;
+  helpTitle.textContent = topic === "warranty"
+    ? "Garantia de 3 meses"
+    : topic === "overview"
+      ? "O que muda entre os analógicos?"
+      : `Analógico ${product.name}`;
+  helpCopy.textContent = techDescriptions[topic === "overview" ? "overview" : topic];
+  guideLink.href = topic === "warranty"
+    ? "#orcamento"
+    : topic === "overview"
+      ? "#tecnologias"
+      : `#guia-${selectedType}`;
+  guideLink.hidden = topic === "warranty";
+  warrantyReturnButton.hidden = topic !== "warranty";
+  warrantyReturnButton.textContent = topic === "warranty" ? "Voltar ao orçamento" : "Continuar orçamento";
   lastFocusedElement = document.activeElement;
   lastHelpTrigger = trigger;
   helpDialog.hidden = false;
@@ -180,7 +189,7 @@ function sendWhatsAppQuote() {
     ? "1 analógico (avulso)"
     : "par (2 analógicos)";
   const message = [
-    "Olá! Encontrei o site da DualFix e gostaria de solicitar um orçamento para meu controle DualSense de PS5. 🎮",
+    "Olá! Encontrei o site da StationFix e gostaria de solicitar um orçamento para meu controle DualSense de PS5. 🎮",
     "",
     "*Meu orçamento*",
     `• Tecnologia: ${quote.product.name}`,
